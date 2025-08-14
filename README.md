@@ -32,7 +32,7 @@ textual_feature/ThingsTrain/text/{text_model}/{subject}/text_feat_train.mat
 
 ---
 
-## ipeline
+## Model Pipeline
 1. **Load data**  
    - EEG: slice relevant time window, flatten, scale by 2.0.  
    - Image: load, scale by 50.0, keep first 100 dims.  
