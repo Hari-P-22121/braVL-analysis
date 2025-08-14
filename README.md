@@ -1,3 +1,38 @@
+# NeuroVision Classifier
+
+Classifying object labels by fusing **brain signals (EEG)**, **visual features**, and **textual descriptions** using the [BraVL dataset](https://github.com/ChangdeDu/BraVL).
+
+---
+
+## 📌 Overview
+The **[BraVL dataset](https://github.com/ChangdeDu/BraVL)** (Brain Vision Language) is a **trimodal** dataset designed to study the relationship between human brain activity, visual perception, and language understanding.  
+It contains:
+- **EEG brain responses** recorded from human participants while they viewed images.
+- **Visual features** extracted from those images.
+- **Textual embeddings** from descriptions of the images.
+
+The task is to classify each sample into an **object label** by leveraging the combined information from all three modalities.
+
+This repository contains my personal project implementing a complete preprocessing and modeling pipeline for BraVL. Originally developed as a university coursework, it has been restructured into a research-style, reproducible codebase.
+
+---
+
+## 📊 Dataset
+The BraVL dataset provides:
+- **EEG features**: 17-channel recordings, sliced from 70–400 ms (indices 27–60).
+- **Image features**: 100-dimensional PCA-reduced embeddings.
+- **Text features**: CLIPText embeddings.
+- **Labels**: Integer-encoded words representing the object in each image.
+
+You can download the dataset from the official repo: [BraVL on GitHub](https://github.com/ChangdeDu/BraVL).
+
+Expected folder structure for this project:
+
+data_root/
+brain_feature/{roi}/{subject}/eeg_train_data_within.mat
+visual_feature/ThingsTrain/{image_model}/{subject}/feat_pca_train.mat
+textual_feature/ThingsTrain/text/{text_model}/{subject}/text_feat_train.mat
+
 
 ---
 
