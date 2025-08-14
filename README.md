@@ -1,19 +1,15 @@
-# NeuroVision Classifier
-
 Classifying object labels by fusing **brain signals (EEG)**, **visual features**, and **textual descriptions** using the [BraVL dataset](https://github.com/ChangdeDu/BraVL).
 
 ---
 
-## 📌 Overview
+## Origin of dataset
 The **[BraVL dataset](https://github.com/ChangdeDu/BraVL)** (Brain Vision Language) is a **trimodal** dataset designed to study the relationship between human brain activity, visual perception, and language understanding.  
 It contains:
 - **EEG brain responses** recorded from human participants while they viewed images.
 - **Visual features** extracted from those images.
 - **Textual embeddings** from descriptions of the images.
 
-The task is to classify each sample into an **object label** by leveraging the combined information from all three modalities.
-
-This repository contains my personal project implementing a complete preprocessing and modeling pipeline for BraVL. Originally developed as a university coursework, it has been restructured into a research-style, reproducible codebase.
+The task is to classify each sample into an **object label** by leveraging the combined information from all three modalities (Brain EEG, Textual, Image, and Label features).
 
 ---
 
@@ -24,7 +20,7 @@ The BraVL dataset provides:
 - **Text features**: CLIPText embeddings.
 - **Labels**: Integer-encoded words representing the object in each image.
 
-You can download the dataset from the official repo: [BraVL on GitHub](https://github.com/ChangdeDu/BraVL).
+Oringinal BraVL dataset repository: [BraVL on GitHub](https://github.com/ChangdeDu/BraVL).
 
 Expected folder structure for this project:
 
@@ -36,7 +32,7 @@ textual_feature/ThingsTrain/text/{text_model}/{subject}/text_feat_train.mat
 
 ---
 
-## 🛠 Pipeline
+## ipeline
 1. **Load data**  
    - EEG: slice relevant time window, flatten, scale by 2.0.  
    - Image: load, scale by 50.0, keep first 100 dims.  
@@ -61,7 +57,7 @@ textual_feature/ThingsTrain/text/{text_model}/{subject}/text_feat_train.mat
 
 ---
 
-## 📈 Results
+## Result
 | Model        | Accuracy | Precision (Weighted) | Recall (Weighted) | F1 (Weighted) |
 |--------------|----------|----------------------|--------------------|---------------|
 | Baseline     | 55.00%   | 0.53                 | 0.55               | 0.54          |
