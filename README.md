@@ -1,5 +1,7 @@
 Classifying object labels by fusing **brain signals (EEG)**, **visual features**, and **textual descriptions** using the [BraVL dataset](https://github.com/ChangdeDu/BraVL).
 
+NOTE: Dataset is not provided here for seen/unseen data
+
 ---
 
 ## Origin of dataset
