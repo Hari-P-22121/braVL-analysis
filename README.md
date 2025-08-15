@@ -66,7 +66,7 @@ textual_feature/ThingsTrain/text/{text_model}/{subject}/text_feat_train.mat
 ## Result
 | Model        | Accuracy | Precision (Weighted) | Recall (Weighted) | F1 (Weighted) |
 |--------------|----------|----------------------|--------------------|---------------|
-| Baseline     | 55.00%   | 0.53                 | 0.55               | 0.54          |
+| Baseline (scikit-learn)    | 55.00%   | 0.53                 | 0.55               | 0.54          |
 | Custom Model | 56.48%   | 0.62                 | 0.56               | 0.55          |
 
 ---
