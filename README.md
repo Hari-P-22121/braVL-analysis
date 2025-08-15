@@ -2,6 +2,11 @@ Classifying object labels by fusing **brain signals (EEG)**, **visual features**
 
 NOTE: Dataset is not provided here for seen/unseen data
 
+Visit Collab to view the code and it's output on Google Collab
+
+Read the documentation.py to see the basic mathematic theorums behind the research
+
+
 ---
 
 ## Origin of dataset
