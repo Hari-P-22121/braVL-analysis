@@ -1,91 +1,119 @@
+# BraVL Multimodal Classification
+
 Classifying object labels by fusing **brain signals (EEG)**, **visual features**, and **textual descriptions** using the [BraVL dataset](https://github.com/ChangdeDu/BraVL).
 
-NOTE: This repository does not provided the dataset, including the seen/unseen data. Please visit the original repo for the data.
+Note: This repository does not provide the dataset, including the seen/unseen data. Please visit the original repository for access.
 
-Visit "BraVL_documentation.pdf" on this repository to view the code and it's output on Google Collab.
-
-Read documentation.py to see the basic analysis behind this project.
+Visit `BraVL_documentation.pdf` on this repository to view the methodology and output from the Colab notebook.  
+See `documentation.py` for the basic logic and structure behind this project.
 
 ---
 
-## Origin of dataset
-The **[BraVL dataset](https://github.com/ChangdeDu/BraVL)** (Brain Vision Language) is a **trimodal** dataset designed to study the relationship between human brain activity, visual perception, and language understanding.  
+## Overview
+
+This project explores multimodal learning using EEG signals, CLIPText embeddings, and image features to classify object labels.  
+The approach combines traditional machine learning methods with preprocessing and evaluation techniques to handle complex data from three modalities.
+
+Key components:
+
+- Data exploration and visualization
+- Outlier detection and removal (Isolation Forest)
+- Standardization and PCA-based dimensionality reduction
+- Stratified train/test split and class balancing (Random Over Sampling)
+- Baseline and custom model implementation (Logistic Regression with gradient descent)
+
+Skills demonstrated:
+
+- Machine Learning (Logistic Regression, Isolation Forest, PCA)
+- Multimodal Feature Engineering
+- Data Imbalance Handling
+- Custom Gradient Descent and Regularization
+- EEG Signal Preprocessing
+
+---
+
+## Origin of Dataset
+
+The [BraVL dataset](https://github.com/ChangdeDu/BraVL) (Brain Vision Language) is a **trimodal** dataset designed to study the relationship between human brain activity, visual perception, and language understanding.  
 It contains:
-- **EEG brain responses** recorded from human participants while they viewed images.
-- **Visual features** extracted from those images.
-- **Textual embeddings** from descriptions of the images.
 
-The task is to classify each sample into an **object label** by leveraging the combined information from all three modalities (Brain EEG, Textual, Image, and Label features).
+- EEG brain responses recorded from human participants while viewing images
+- Visual features extracted from those images
+- Textual embeddings from descriptions of the images
+
+The classification task is to predict the object label using the fused multimodal information.
 
 ---
 
-## BraVL Dataset
+## BraVL Dataset Structure
+
 The BraVL dataset provides:
-- **EEG features**: 17-channel recordings, sliced from 70–400 ms (indices 27–60).
-- **Image features**: 100-dimensional PCA-reduced embeddings.
-- **Text features**: CLIPText embeddings.
-- **Labels**: Integer-encoded words representing the object in each image.
 
-Oringinal BraVL dataset repository: [BraVL on GitHub](https://github.com/ChangdeDu/BraVL).
+- EEG features: 17-channel recordings, sliced from 70–400 ms (indices 27–60)
+- Image features: 100-dimensional PCA-reduced embeddings
+- Text features: CLIPText embeddings
+- Labels: Integer-encoded words representing the object in each image
 
-Expected folder structure for this project:
+Original BraVL dataset repository: [https://github.com/ChangdeDu/BraVL](https://github.com/ChangdeDu/BraVL)
+
+Expected folder structure:
 
 data_root/
-brain_feature/{roi}/{subject}/eeg_train_data_within.mat
-visual_feature/ThingsTrain/{image_model}/{subject}/feat_pca_train.mat
-textual_feature/ThingsTrain/text/{text_model}/{subject}/text_feat_train.mat
+├── brain_feature/{roi}/{subject}/eeg_train_data_within.mat
+├── visual_feature/ThingsTrain/{image_model}/{subject}/feat_pca_train.mat
+└── textual_feature/ThingsTrain/text/{text_model}/{subject}/text_feat_train.mat
 
 
 ---
 
 ## Model Pipeline
+
 1. **Load data**  
-   - EEG: slice relevant time window, flatten, scale by 2.0.  
-   - Image: load, scale by 50.0, keep first 100 dims.  
-   - Text: load, scale by 2.0.  
-   - Labels: loaded from `class_idx` in EEG `.mat` file.
+   - EEG: slice relevant time window, flatten, scale by 2.0  
+   - Image: load, scale by 50.0, keep first 100 dimensions  
+   - Text: load, scale by 2.0  
+   - Labels: loaded from `class_idx` in EEG `.mat` files
 
 2. **Standardize per modality**  
-   StandardScaler on EEG, image, and text **separately**.
+   StandardScaler is applied independently to EEG, image, and text features.
 
 3. **Outlier removal**  
-   Isolation Forest per modality, keep only samples that pass all three filters.
+   Isolation Forest is used for each modality. Only samples passing all filters are kept.
 
-4. **Feature fusion & dimensionality reduction**  
-   Concatenate [EEG | Image | Text] features → PCA (retain 95% variance).
+4. **Feature fusion and dimensionality reduction**  
+   Concatenate `[EEG | Image | Text]` features and apply PCA (retain 95% variance)
 
-5. **Split & balance**  
-   Stratified train/validation split. Random Over Sampling on training set to fix imbalance.
+5. **Split and balance**  
+   Stratified train/test split (80/20). Random Over Sampling applied to balance training classes.
 
 6. **Model training**  
-   - **Baseline**: scikit-learn multinomial Logistic Regression.  
-   - **Custom**: softmax logistic regression with L1/L2 regularization, mini-batch gradient descent, better weight initialization.
+   - Baseline: Multinomial Logistic Regression using scikit-learn  
+   - Custom: Logistic Regression from scratch with softmax, L1/L2 regularization, mini-batch gradient descent, and weight initialization
 
 ---
 
-## Result
-| Model        | Accuracy | Precision (Weighted) | Recall (Weighted) | F1 (Weighted) |
-|--------------|----------|----------------------|--------------------|---------------|
-| Baseline (scikit-learn)    | 55.00%   | 0.53                 | 0.55               | 0.54          |
-| Custom Model | 56.48%   | 0.62                 | 0.56               | 0.55          |
+## Results
+
+| Model               | Accuracy | Precision (Weighted) | Recall (Weighted) | F1 Score (Weighted) |
+|--------------------|----------|----------------------|--------------------|----------------------|
+| Baseline (scikit-learn) | 55.00%   | 0.53                 | 0.55               | 0.54                 |
+| Custom Model        | 56.48%   | 0.62                 | 0.56               | 0.55                 |
 
 ---
 
 ## BraVL_Analysis.ipynb
 
-This notebook contains the full analysis pipeline for the BraVL dataset, a trimodal dataset combining:
+This notebook contains the full analysis pipeline for the BraVL dataset:
 
-- EEG brain signals
-- Visual data (images)
-- Textual descriptions
+- EEG brain signal processing
+- Visual and text feature handling
+- Data exploration and visualization
+- Standardization and PCA
+- Outlier removal (Isolation Forest)
+- Dataset balancing (RandomOverSampler)
+- Baseline and custom model implementation
+- Evaluation and improvements (accuracy, F1, regularization, batch training)
 
-1. **Data exploration** – distributions, outliers, modality characteristics  
-2. **Preprocessing** – standardization, outlier removal, PCA  
-3. **Data balancing** – using Random Over Sampler  
-4. **Modeling** – baseline logistic regression and a custom model with gradient descent  
-5. **Evaluation** – accuracy, precision, recall, and F1-score  
-6. **Improvements** – regularization, mini-batch processing, and initialization strategies  
-
-Google Collabb .ipynb:
+Open the interactive notebook in Google Colab:
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1HnUmp5_yvMdXwpvP01HpqK2TT0OJzOl5?usp=sharing)
