@@ -56,27 +56,6 @@ The BraVL dataset provides:
 
 Original BraVL dataset repository: [https://github.com/ChangdeDu/BraVL](https://github.com/ChangdeDu/BraVL)
 
-## Expected Folder Structure
-
-data_root/
-├── brain_feature/
-│   └── {roi}/
-│       └── {subject}/
-│           └── eeg_train_data_within.mat
-├── visual_feature/
-│   └── ThingsTrain/
-│       └── {image_model}/
-│           └── {subject}/
-│               └── feat_pca_train.mat
-└── textual_feature/
-    └── ThingsTrain/
-        └── text/
-            └── {text_model}/
-                └── {subject}/
-                    └── text_feat_train.mat
-
-
-
 
 ---
 
