@@ -71,8 +71,25 @@ textual_feature/ThingsTrain/text/{text_model}/{subject}/text_feat_train.mat
 
 ---
 
-## Installation
-```bash
-git clone https://github.com/yourusername/neurovision-classifier.git
-cd neurovision-classifier
-pip install -r requirements.txt
+## 📓 BraVL_Analysis.ipynb
+
+This notebook contains the full analysis pipeline for the BraVL dataset, a trimodal dataset combining:
+
+- 🧠 EEG brain signals
+- 🖼️ Visual data (images)
+- 📝 Textual descriptions
+
+The notebook walks through:
+
+1. **Data exploration** – distributions, outliers, modality characteristics  
+2. **Preprocessing** – standardization, outlier removal, PCA  
+3. **Data balancing** – using Random Over Sampler  
+4. **Modeling** – baseline logistic regression and a custom model with gradient descent  
+5. **Evaluation** – accuracy, precision, recall, and F1-score  
+6. **Improvements** – regularization, mini-batch processing, and initialization strategies  
+
+📄 Detailed methodology is also available in [`BraVL_documentation.pdf`](./BraVL_documentation.pdf)
+
+👉 Run the notebook interactively in Google Colab:
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1HnUmp5_yvMdXwpvP01HpqK2TT0OJzOl5?usp=sharing)
