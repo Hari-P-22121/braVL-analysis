@@ -20,7 +20,7 @@ The task is to classify each sample into an **object label** by leveraging the c
 
 ---
 
-## 📊 Dataset
+## BraVL Dataset
 The BraVL dataset provides:
 - **EEG features**: 17-channel recordings, sliced from 70–400 ms (indices 27–60).
 - **Image features**: 100-dimensional PCA-reduced embeddings.
@@ -72,7 +72,7 @@ textual_feature/ThingsTrain/text/{text_model}/{subject}/text_feat_train.mat
 
 ---
 
-## 📦 Installation
+## Installation
 ```bash
 git clone https://github.com/yourusername/neurovision-classifier.git
 cd neurovision-classifier
